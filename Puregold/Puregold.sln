@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puregold.Domain", "Puregold
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puregold.Application", "Puregold.Application\Puregold.Application.csproj", "{5A82496B-4D84-430B-9459-9C8C1294B847}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puregold.Api", "Puregold.Api\Puregold.Api.csproj", "{7B6B57D0-6F93-43B7-BFA4-B393CF0D5298}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5A82496B-4D84-430B-9459-9C8C1294B847}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A82496B-4D84-430B-9459-9C8C1294B847}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A82496B-4D84-430B-9459-9C8C1294B847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B6B57D0-6F93-43B7-BFA4-B393CF0D5298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B6B57D0-6F93-43B7-BFA4-B393CF0D5298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B6B57D0-6F93-43B7-BFA4-B393CF0D5298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B6B57D0-6F93-43B7-BFA4-B393CF0D5298}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

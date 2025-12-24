@@ -5,19 +5,22 @@ namespace Puregold.Application;
 
 public static class DependencyInjection
 {
-    public static void AddApplication(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        services.AddAutoMapper();
-        services.AddMediator();
-    }
+        public void AddApplication()
+        {
+            services.AddAutoMapper();
+            services.AddMediator();
+        }
 
-    private static void AddAutoMapper(this IServiceCollection services)
-    {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
-    }
+        private void AddAutoMapper()
+        {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        }
 
-    private static void AddMediator(this IServiceCollection services)
-    {
-        services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        private void AddMediator()
+        {
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        }
     }
 }

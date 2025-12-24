@@ -8,50 +8,59 @@ using Puregold.Application.Abstractions.Authentication;
 using Puregold.Application.Abstractions.Repositories;
 using Puregold.Infra.Authentication;
 using Puregold.Infra.Database.Contexts;
+using Puregold.Infra.Database.Interceptors;
 using Puregold.Infra.Database.Repositories;
 
 namespace Puregold.Infra;
 
 public static class DependencyInjection
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    extension(IServiceCollection services)
     {
-        services.AddAuthentication(configuration);
-        services.AddDbContexts(configuration);
-        services.AddRepositories();
-    }
+        public void AddInfrastructure(IConfiguration configuration)
+        {
+            services.AddAuthentication(configuration);
+            services.AddDbContexts(configuration);
+            services.AddRepositories();
+        }
 
-    private static void AddDbContexts(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<PuregoldDbContext>(opt =>
-            opt.UseSqlServer(configuration.GetConnectionString("MigrationDb")));
-    }
-
-    private static void AddRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IItemRepository, ItemRepository>();
-        services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
-    }
-
-    private static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
-    {
-        var jwtSetting = JwtSetting.FromConfiguration(configuration);
-        
-        services.AddSingleton(jwtSetting);
-        services.AddSingleton<ITokenProvider, TokenProvider>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
-        
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(opt =>
+        private void AddDbContexts(IConfiguration configuration)
+        {
+            services.AddDbContext<PuregoldDbContext>((sp, opt) =>
             {
-                opt.RequireHttpsMetadata = true;
-                opt.TokenValidationParameters = new TokenValidationParameters
-                {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.Secret)),
-                    ValidIssuer = jwtSetting.Issuer,
-                    ValidAudience = jwtSetting.Audience,
-                    ClockSkew = TimeSpan.Zero
-                };
+                var interceptor = sp.GetRequiredService<AuditEntitiesInterceptor>();
+
+                opt.UseSqlServer(configuration.GetConnectionString("MigrationDb"))
+                    .AddInterceptors(interceptor);
             });
+        }
+
+        private void AddRepositories()
+        {
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
+        }
+
+        private void AddAuthentication(IConfiguration configuration)
+        {
+            var jwtSetting = JwtSetting.FromConfiguration(configuration);
+        
+            services.AddSingleton(jwtSetting);
+            services.AddSingleton<ITokenProvider, TokenProvider>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.RequireHttpsMetadata = true;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.Secret)),
+                        ValidIssuer = jwtSetting.Issuer,
+                        ValidAudience = jwtSetting.Audience,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+        }
     }
 }

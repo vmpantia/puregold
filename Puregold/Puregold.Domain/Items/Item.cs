@@ -2,7 +2,7 @@ using Puregold.Domain.Common;
 
 namespace Puregold.Domain.Items;
 
-public abstract class Item : IEntity
+public class Item : IEntity
 {
     public Guid Id { get; set; }
     public Guid ItemCategoryId { get; set; }

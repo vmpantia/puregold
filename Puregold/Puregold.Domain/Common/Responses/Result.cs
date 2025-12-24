@@ -1,6 +1,6 @@
 namespace Puregold.Domain.Common.Responses;
 
-public class Result<TData>
+public sealed class Result<TData>
 {
     public Result() { }
     

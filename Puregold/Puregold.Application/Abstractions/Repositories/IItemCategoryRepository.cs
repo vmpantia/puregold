@@ -1,4 +1,4 @@
-using Puregold.Domain.Items;
+using Puregold.Domain.ItemCategories;
 
 namespace Puregold.Application.Abstractions.Repositories;
 

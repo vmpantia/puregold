@@ -1,6 +1,7 @@
 using Puregold.Domain.Common;
+using Puregold.Domain.Items;
 
-namespace Puregold.Domain.Items;
+namespace Puregold.Domain.ItemCategories;
 
 public class ItemCategory : IEntity
 {

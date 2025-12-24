@@ -1,4 +1,5 @@
 using Puregold.Domain.Common;
+using Puregold.Domain.ItemCategories;
 
 namespace Puregold.Domain.Items;
 

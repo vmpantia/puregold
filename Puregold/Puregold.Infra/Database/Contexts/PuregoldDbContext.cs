@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Puregold.Domain.ItemCategories;
 using Puregold.Domain.Items;
 
 namespace Puregold.Infra.Database.Contexts;

@@ -11,13 +11,10 @@ public sealed class LoginUserCommandHandler(IUserRepository userRepository,
 {
     public async Task<Result<UserTokenDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        // Get user stored on the database using a username or email address
-        var user = await userRepository.GetOneAsync(expression: u =>
-                u.Username == request.Login.UsernameOrEmail || u.Email == request.Login.UsernameOrEmail,
-            cancellationToken);
-
+        var user = await userRepository.GetByUsernameOrEmailAsync(request.Login.UsernameOrEmail, cancellationToken);
+        
         // Check if user NULL or not exist
-        if (user == null) return UserErrors.UsernameOrEmailAddressNotFound();
+        if (user is null) return UserErrors.UsernameOrEmailAddressNotFound();
         
         // Check if user password matches on the given password using password hasher
         if (!passwordHasher.Verify(request.Login.Password, user.Password)) 

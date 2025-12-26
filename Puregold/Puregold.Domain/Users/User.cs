@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using Puregold.Domain.Common;
+using Puregold.Domain.Common.Interfaces;
 using Puregold.Domain.Enums;
 
 namespace Puregold.Domain.Users;
@@ -11,15 +11,15 @@ public sealed class User : IEntity
     public string Email { get; set; }
     public string Password { get; set; }
     public string FirstName { get; set; }
-    public string MiddleName { get; set; }
+    public string? MiddleName { get; set; }
     public string LastName { get; set; }
     public Gender Gender { get; set; }
     public UserRole Role { get; set; }
-    public UserStatus Status { get; set; }  
-    public DateTime? CreatedAtUtc { get; set; }
+    public CommonStatus Status { get; set; }  
+    public DateTime CreatedAtUtc { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? UpdatedAtUtc { get; set; }
-    public string UpdatedBy { get; set; }
+    public string? UpdatedBy { get; set; }
     
     [NotMapped]
     public string Name

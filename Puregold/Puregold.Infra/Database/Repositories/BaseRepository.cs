@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Puregold.Application.Abstractions.Repositories;
-using Puregold.Domain.Common;
+using Puregold.Domain.Common.Interfaces;
 using Puregold.Infra.Database.Contexts;
 
 namespace Puregold.Infra.Database.Repositories;

@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Puregold.Domain.Common;
+using Puregold.Domain.Common.Interfaces;
 
 namespace Puregold.Application.Abstractions.Repositories;
 

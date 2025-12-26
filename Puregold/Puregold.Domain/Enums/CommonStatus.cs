@@ -1,8 +1,8 @@
 namespace Puregold.Domain.Enums;
 
-public enum UserStatus
+public enum CommonStatus
 {
     Enabled,
-    Disabled,
+    Disabled, 
     Deleted
 }

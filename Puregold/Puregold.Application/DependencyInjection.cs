@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Puregold.Application.Behaviors;
 
 namespace Puregold.Application;
 
@@ -20,7 +21,12 @@ public static class DependencyInjection
 
         private void AddMediator()
         {
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+                config.AddOpenBehavior(typeof(DbTransactionPipelineBehavior<,>));
+            });
         }
     }
 }

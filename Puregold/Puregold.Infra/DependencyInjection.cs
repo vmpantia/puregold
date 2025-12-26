@@ -21,7 +21,13 @@ public static class DependencyInjection
         {
             services.AddAuthentication(configuration);
             services.AddDbContexts(configuration);
+            services.AddInterceptors();
             services.AddRepositories();
+        }
+
+        private void AddInterceptors()
+        {
+            services.AddSingleton<AuditEntitiesInterceptor>();
         }
 
         private void AddDbContexts(IConfiguration configuration)
@@ -39,6 +45,7 @@ public static class DependencyInjection
         {
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IItemCategoryRepository, ItemCategoryRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         private void AddAuthentication(IConfiguration configuration)

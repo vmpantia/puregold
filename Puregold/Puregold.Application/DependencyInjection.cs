@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Puregold.Application.Behaviors;
 
@@ -12,6 +13,7 @@ public static class DependencyInjection
         {
             services.AddAutoMapper();
             services.AddMediator();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         private void AddAutoMapper()

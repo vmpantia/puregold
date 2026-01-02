@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Puregold.Api;
 using Puregold.Application;
 using Puregold.Infra;
@@ -19,8 +20,9 @@ builder.Services.AddCors(option =>
     option.DefaultPolicyName = "cors";
 });
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters
+        .Add(new JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
 
